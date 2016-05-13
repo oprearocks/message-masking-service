@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./handlers"
-	// "./persistence"
 	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/opreaadrian/message-masking-service/"
+	"github.com/opreaadrian/message-masking-service/handlers"
 	"log"
 	"net/http"
 )
