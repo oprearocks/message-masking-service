@@ -19,6 +19,7 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
 	processed_message := mask_sensitive_data(message.Text)
 	w.WriteJson(
 		&Message{
