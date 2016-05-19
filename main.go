@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/ant0ine/go-json-rest/rest"
 	"go-message-masking/handlers"
 	"log"
 	"net/http"
+
+	"github.com/ant0ine/go-json-rest/rest"
 )
 
 func main() {
