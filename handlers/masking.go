@@ -35,8 +35,9 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 	processedMessage := maskSensitiveData(message.Text, persistence.Expressions, maskSymbol)
 	w.WriteJson(
 		&Message{
-			Locale: message.Locale,
-			Text:   processedMessage,
+			Locale:     message.Locale,
+			Text:       processedMessage,
+			MaskSymbol: maskSymbol,
 		},
 	)
 }
