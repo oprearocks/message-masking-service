@@ -21,3 +21,23 @@ Currently the API can only be tested through the `api_test.sh` script. The scrip
 makes requests to the API and you will be able to see if the requests go through because you will
 see activity in the window where you first ran the API and you will also receive a JSON
 response with the private data properly masked.
+
+## Usage
+Make a request to `https://[SERVICE URL]/mask` with the following body:
+
+```json
+{
+    "Locale": "en_US",
+    "Text": "This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555",
+    "MaskSymbol": "(hidden)"
+}
+```
+
+### Request body definition
+
+- `Locale` &mdash; This is the locale being used to display the message - usually reflects the type of data that is required to be masked.
+> This could change in the near future to express the country/area where certain patterns are available
+
+- `Text` &mdash; The actual message body that contains the data supposed to be masked
+
+- `MaskSymbol` &mdash; This is a custom symbol(character) or a word/series of words that is meant to replace the data that is supposed to be masked.
