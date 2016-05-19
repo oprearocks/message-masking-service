@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"github.com/ant0ine/go-json-rest/rest"
 	"go-message-masking/persistence"
 	"net/http"
 	"regexp"
+
+	"github.com/ant0ine/go-json-rest/rest"
 )
 
 type Message struct {
@@ -22,7 +23,7 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 		return
 	}
 
-	processed_message := mask_sensitive_data(message.Text, persistence.Expressions)
+	processed_message := maskSensitiveData(message.Text, persistence.Expressions)
 	w.WriteJson(
 		&Message{
 			Locale: message.Locale,
@@ -31,15 +32,15 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 	)
 }
 
-func mask_sensitive_data(s string, expressions_map map[string]string) string {
-	for _, value := range expressions_map {
-		s = apply_expression(s, value)
+func maskSensitiveData(s string, expressionMap map[string]string) string {
+	for _, value := range expressionMap {
+		s = applyExpression(s, value)
 	}
 
 	return s
 }
 
-func apply_expression(s string, expression string) string {
+func applyExpression(s string, expression string) string {
 	re := regexp.MustCompile(expression)
 	return re.ReplaceAllStringFunc(s, func(str string) string {
 		var mask string
