@@ -20,9 +20,9 @@ a Docker container that will perform the builds for all operating systems.
 The API functionality can be tested through the `api_test.sh` script. The script
 makes requests to the API and you will be able to see if the requests go through because you will
 see activity in the window where you first ran the API and you will also receive a JSON
-response with the private data properly masked.
-There is also a Postman collection available at `test/data_masking_service.postman_collection.json`. Import it and select the "Local environment"
-The Postman collection also provides some tests that work with the request body that is provided in the JSON config.
+response with the private data properly masked.  
+There is also a Postman collection available at `test/data_masking_service.postman_collection.json`.  
+Import it and select the "Local" environment. The collection also provides some tests that work with the request body that is provided in the JSON config.
 
 ## Usage
 Make a request to `https://[SERVICE URL]/mask` with the following body:
