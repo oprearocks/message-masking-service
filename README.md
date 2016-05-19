@@ -35,6 +35,16 @@ Make a request to `https://[SERVICE URL]/mask` with the following body:
 }
 ```
 
+The response for the above request would look like the one below:
+
+```json
+{
+    "Locale": "en_US",
+    "Text": "This should be masked as it is a credit card (hidden)(VISA). This too should be masked as it is a North American phone number (hidden)? The service can also mask Social Security Numbers like this one: (hidden)",
+    "MaskSymbol": "(hidden)"
+}
+```
+
 ### Request body definition
 
 - `Locale` &mdash; This is the locale being used to display the message - usually reflects the type of data that is required to be masked.
