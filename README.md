@@ -40,4 +40,4 @@ Make a request to `https://[SERVICE URL]/mask` with the following body:
 
 - `Text` &mdash; The actual message body that contains the data supposed to be masked
 
-- `MaskSymbol` &mdash; This is a custom symbol(character) or a word/series of words that is meant to replace the data that is supposed to be masked.
+- `MaskSymbol`(default: `X`) &mdash; This is a custom symbol(character) or a word/series of words that is meant to replace the data that is supposed to be masked.
