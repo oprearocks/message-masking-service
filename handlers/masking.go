@@ -21,15 +21,15 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 
 	message := Message{}
 	err := r.DecodeJsonPayload(&message)
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	var maskString = "(hidden)"
 
 	if message.MaskString != "" {
 		maskString = message.MaskString
-	}
-
-	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-		return
 	}
 
 	processedMessage := maskSensitiveData(message.Text, persistence.Expressions, maskString)
