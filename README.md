@@ -52,4 +52,4 @@ The response for the above request would look like the one below:
 
 - `Text` &mdash; The actual message body that contains the data supposed to be masked
 
-- `MaskSymbol`(default: `X`) &mdash; This is a custom symbol(character) or a word/series of words that is meant to replace the data that is supposed to be masked.
+- `MaskString` (default: `(hidden)`) &mdash; By specifying a value for this property you will effectively replace all occurrences matched by the regular expression by that value. The default value for this property is `(hidden)`
