@@ -30,8 +30,7 @@ Make a request to `https://[SERVICE URL]/mask` with the following body:
 ```json
 {
     "Locale": "en_US",
-    "Text": "This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555",
-    "MaskSymbol": "(hidden)"
+    "Text": "This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555"
 }
 ```
 
@@ -41,7 +40,27 @@ The response for the above request would look like the one below:
 {
     "Locale": "en_US",
     "Text": "This should be masked as it is a credit card (hidden)(VISA). This too should be masked as it is a North American phone number (hidden)? The service can also mask Social Security Numbers like this one: (hidden)",
-    "MaskSymbol": "(hidden)"
+    "MaskString": "(hidden)"
+}
+```
+
+### Custom `MaskString`
+Making a request to the service and specifying the `MaskString` property like this:
+```json
+{
+    "Locale": "en_US",
+    "Text": "This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555",
+    "MaskString": "**hidden**"
+}
+```
+
+Will give you this response:
+
+```json
+{
+    "Locale": "en_US",
+    "Text": "This should be masked as it is a credit card **hidden**(VISA). This too should be masked as it is a North American phone number **hidden**? The service can also mask Social Security Numbers like this one: **hidden**",
+    "MaskString": "**hidden**"
 }
 ```
 
