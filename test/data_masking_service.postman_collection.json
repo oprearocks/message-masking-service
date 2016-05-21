@@ -3,7 +3,8 @@
 	"name": "Data Masking Service",
 	"description": "",
 	"order": [
-		"efa2617b-2de0-e6cf-eb34-3b1304cc81f8"
+		"c902bb1c-47a2-4205-91cd-791e65794502",
+		"09c37921-6480-e892-b65d-432a3c3b2d75"
 	],
 	"folders": [],
 	"timestamp": "2016-05-12T22:16:04.399Z",
@@ -12,7 +13,7 @@
 	"public": false,
 	"requests": [
 		{
-			"id": "efa2617b-2de0-e6cf-eb34-3b1304cc81f8",
+			"id": "09c37921-6480-e892-b65d-432a3c3b2d75",
 			"headers": "Content-Type: application/json\nHost: \nAuthorization: Basic YWRtaW46YWRtaW4=\n",
 			"url": "{{url}}/mask",
 			"preRequestScript": null,
@@ -21,15 +22,35 @@
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"The request body matches string\"] = responseBody.has(\"This should be masked as it is a credit card (hidden)(VISA). This too should be masked as it is a North American phone number (hidden)? The service can also mask Social Security Numbers like this one: (hidden)\");\n\nvar schema = {\n \"Locale\": \"string\",\n \"Message\": \"string\",\n \"MaskSymbol\": \"string\"\n};\n\ntests[\"The response body validates with the schema\"] = tv4.validate(responseBody, schema);\n",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"The response body matches string\"] = responseBody.has(\"This should be masked as it is a credit card **hidden**(VISA). This too should be masked as it is a North American phone number **hidden**? The service can also mask Social Security Numbers like this one: **hidden**\");\n\nvar schema = {\n \"Locale\": \"string\",\n \"Message\": \"string\",\n \"MaskString\": \"string\"\n};\n\ntests[\"The response body validates with the schema\"] = tv4.validate(responseBody, schema);",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1463693871336,
-			"name": "{{url}}/mask",
-			"description": "",
+			"time": 1463831601338,
+			"name": "Request with custom MaskString -- **hidden**",
+			"description": "This is a request with a custom MaskString. It replaces all the occurrences matched by the regular expressions by the pattern passed via the MaskString property",
 			"collectionId": "7bf2b6cb-64d8-fc7f-1df1-acdf4668f4ef",
 			"responses": [],
-			"rawModeData": "{\n    \"Locale\": \"en_US\",\n    \"Text\": \"This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555\",\n    \"MaskSymbol\": \"(hidden)\"\n}"
+			"rawModeData": "{\n    \"Locale\": \"en_US\",\n    \"Text\": \"This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555\",\n    \"MaskString\": \"**hidden**\"\n}"
+		},
+		{
+			"id": "c902bb1c-47a2-4205-91cd-791e65794502",
+			"headers": "Content-Type: application/json\nHost: \nAuthorization: Basic YWRtaW46YWRtaW4=\n",
+			"url": "{{url}}/mask",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"The response body matches string\"] = responseBody.has(\"This should be masked as it is a credit card **hidden**(VISA). This too should be masked as it is a North American phone number **hidden**? The service can also mask Social Security Numbers like this one: **hidden**\");\n\nvar schema = {\n \"Locale\": \"string\",\n \"Message\": \"string\",\n \"MaskString\": \"string\"\n};\n\ntests[\"The response body validates with the schema\"] = tv4.validate(responseBody, schema);",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1463831603661,
+			"name": "Request with default MaskString",
+			"description": "This is a request that does not specify the MaskString, thus, the default \"(hidden)\" masking string is used.",
+			"collectionId": "7bf2b6cb-64d8-fc7f-1df1-acdf4668f4ef",
+			"responses": [],
+			"rawModeData": "{\n    \"Locale\": \"en_US\",\n    \"Text\": \"This should be masked as it is a credit card 4111111111111111(VISA). This too should be masked as it is a North American phone number 1-(555)-555-5555? The service can also mask Social Security Numbers like this one: 555-55-5555\",\n    \"MaskString\": \"**hidden**\"\n}"
 		}
 	]
 }
