@@ -12,7 +12,7 @@ import (
 type Message struct {
 	Locale     string
 	Text       string
-	MaskSymbol string
+	MaskString string
 }
 
 // MaskSensitiveData is the route handler that responds whenever the `/mask` route
@@ -21,10 +21,10 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 
 	message := Message{}
 	err := r.DecodeJsonPayload(&message)
-	var maskSymbol = "X"
+	var maskString = "(hidden)"
 
-	if message.MaskSymbol != "" {
-		maskSymbol = message.MaskSymbol
+	if message.MaskString != "" {
+		maskString = message.MaskString
 	}
 
 	if err != nil {
@@ -32,35 +32,25 @@ func MaskSensitiveData(w rest.ResponseWriter, r *rest.Request) {
 		return
 	}
 
-	processedMessage := maskSensitiveData(message.Text, persistence.Expressions, maskSymbol)
+	processedMessage := maskSensitiveData(message.Text, persistence.Expressions, maskString)
 	w.WriteJson(
 		&Message{
 			Locale:     message.Locale,
 			Text:       processedMessage,
-			MaskSymbol: maskSymbol,
+			MaskString: maskString,
 		},
 	)
 }
 
-func maskSensitiveData(s string, expressionMap map[string]string, maskSymbol string) string {
+func maskSensitiveData(s string, expressionMap map[string]string, maskString string) string {
 	for _, value := range expressionMap {
-		s = applyExpression(s, value, maskSymbol)
+		s = applyExpression(s, value, maskString)
 	}
 
 	return s
 }
 
-func applyExpression(s string, expression string, maskSymbol string) string {
+func applyExpression(s string, expression string, maskString string) string {
 	re := regexp.MustCompile(expression)
-	return re.ReplaceAllStringFunc(s, func(str string) string {
-		var maskedValue string
-		if len(maskSymbol) > 1 {
-			return maskSymbol
-		}
-
-		for range str {
-			maskedValue += maskSymbol
-		}
-		return maskedValue
-	})
+	return re.ReplaceAllString(s, maskString)
 }
