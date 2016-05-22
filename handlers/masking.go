@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"go-message-masking/persistence"
 	"net/http"
 	"regexp"
+
+	"github.com/opreaadrian/message-masking-service/persistence"
 
 	"github.com/ant0ine/go-json-rest/rest"
 )

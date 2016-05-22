@@ -1,9 +1,10 @@
 package main
 
 import (
-	"go-message-masking/handlers"
 	"log"
 	"net/http"
+
+	"github.com/opreaadrian/message-masking-service/handlers"
 
 	"github.com/ant0ine/go-json-rest/rest"
 )
